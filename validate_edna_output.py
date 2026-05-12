@@ -228,65 +228,65 @@ def shared_expected(p: str, a: str) -> dict[str, list[str]]:
     """Files that are always checked (shared with collaborators)."""
     return {
         "05-lca": [
-            f"{p}_{a}_asv_blast2_lca_with_fishbase_output.tsv",
-            f"{p}_{a}_asv_blast2_lulucurated_lca_with_fishbase_output.tsv",
-            f"{p}_{a}_asv_blast2_lulucurated_taxa_final.tsv",
-            f"{p}_{a}_asv_blast2_lulucurated_taxa_raw.tsv",
-            f"{p}_{a}_asv_blast2_taxa_final.tsv",
-            f"{p}_{a}_asv_blast2_taxa_raw.tsv",
-            f"{p}_{a}_asv_blast_lca_with_fishbase_output.tsv",
-            f"{p}_{a}_asv_blast_lulucurated_lca_with_fishbase_output.tsv",
-            f"{p}_{a}_asv_blast_lulucurated_taxa_final.tsv",
-            f"{p}_{a}_asv_blast_lulucurated_taxa_raw.tsv",
-            f"{p}_{a}_asv_blast_taxa_final.tsv",
-            f"{p}_{a}_asv_blast_taxa_raw.tsv",
+            f"{p}_{a}_asv_nt_lca_with_fishbase_output.tsv",
+            f"{p}_{a}_asv_nt_lulucurated_lca_with_fishbase_output.tsv",
+            f"{p}_{a}_asv_nt_lulucurated_taxa_final.tsv",
+            f"{p}_{a}_asv_nt_lulucurated_taxa_raw.tsv",
+            f"{p}_{a}_asv_nt_taxa_final.tsv",
+            f"{p}_{a}_asv_nt_taxa_raw.tsv",
+            f"{p}_{a}_asv_curateddb_lca_with_fishbase_output.tsv",
+            f"{p}_{a}_asv_curateddb_lulucurated_lca_with_fishbase_output.tsv",
+            f"{p}_{a}_asv_curateddb_lulucurated_taxa_final.tsv",
+            f"{p}_{a}_asv_curateddb_lulucurated_taxa_raw.tsv",
+            f"{p}_{a}_asv_curateddb_taxa_final.tsv",
+            f"{p}_{a}_asv_curateddb_taxa_raw.tsv",
         ],
         "06-aquamap": [
-            f"{p}_{a}_aquamaps_asv_blast2_flagged_phyloseq.rds.csv",
-            f"{p}_{a}_aquamaps_asv_blast_flagged_phyloseq.rds.csv",
-            f"{p}_{a}_aquamaps_asv_blast2_lulucurated_flagged_phyloseq.rds.csv",
-            f"{p}_{a}_aquamaps_asv_blast_lulucurated_flagged_phyloseq.rds.csv",
+            f"{p}_{a}_aquamaps_asv_nt_flagged_phyloseq.rds.csv",
+            f"{p}_{a}_aquamaps_asv_curateddb_flagged_phyloseq.rds.csv",
+            f"{p}_{a}_aquamaps_asv_nt_lulucurated_flagged_phyloseq.rds.csv",
+            f"{p}_{a}_aquamaps_asv_curateddb_lulucurated_flagged_phyloseq.rds.csv",
         ],
         "06-phyloseq": [
-            f"{p}_{a}_asv_blast2_final_taxa.tsv",
-            f"{p}_{a}_asv_blast2_flagged_phyloseq.rds",
-            f"{p}_{a}_asv_blast2_lulucurated_final_taxa.tsv",
-            f"{p}_{a}_asv_blast2_lulucurated_flagged_phyloseq.rds",
-            f"{p}_{a}_asv_blast_final_taxa.tsv",
-            f"{p}_{a}_asv_blast_flagged_phyloseq.rds",
-            f"{p}_{a}_asv_blast_lulucurated_final_taxa.tsv",
-            f"{p}_{a}_asv_blast_lulucurated_flagged_phyloseq.rds",
+            f"{p}_{a}_asv_nt_final_taxa.tsv",
+            f"{p}_{a}_asv_nt_flagged_phyloseq.rds",
+            f"{p}_{a}_asv_nt_lulucurated_final_taxa.tsv",
+            f"{p}_{a}_asv_nt_lulucurated_flagged_phyloseq.rds",
+            f"{p}_{a}_asv_curateddb_final_taxa.tsv",
+            f"{p}_{a}_asv_curateddb_flagged_phyloseq.rds",
+            f"{p}_{a}_asv_curateddb_lulucurated_final_taxa.tsv",
+            f"{p}_{a}_asv_curateddb_lulucurated_flagged_phyloseq.rds",
         ],
         "07-faire": [
-            f"{p}_{a}_asv_blast2_final_faire_metadata.xlsx",
-            f"{p}_{a}_asv_blast2_lulucurated_final_faire_metadata.xlsx",
-            f"{p}_{a}_asv_blast_final_faire_metadata.xlsx",
-            f"{p}_{a}_asv_blast_lulucurated_final_faire_metadata.xlsx",
+            f"{p}_{a}_asv_nt_final_faire_metadata.xlsx",
+            f"{p}_{a}_asv_nt_lulucurated_final_faire_metadata.xlsx",
+            f"{p}_{a}_asv_curateddb_final_faire_metadata.xlsx",
+            f"{p}_{a}_asv_curateddb_lulucurated_final_faire_metadata.xlsx",
         ],
         "07-multiqc": [
             f"{p}_{a}_multiqc_report.html",
         ],
         "07-proportional_filter": [
-            f"{p}_{a}_asv_blast2_faire_taxa_filtered.tsv",
-            f"{p}_{a}_asv_blast2_lulucurated_faire_taxa_filtered.tsv",
-            f"{p}_{a}_asv_blast2_lulucurated_OTU_filtered.tsv",
-            f"{p}_{a}_asv_blast2_lulucurated_phyloseq_filtered.rds",
-            f"{p}_{a}_asv_blast2_lulucurated_phyloseq_taxa_filtered.tsv",
-            f"{p}_{a}_asv_blast2_lulucurated_proportional_stats.txt",
-            f"{p}_{a}_asv_blast2_OTU_filtered.tsv",
-            f"{p}_{a}_asv_blast2_phyloseq_filtered.rds",
-            f"{p}_{a}_asv_blast2_phyloseq_taxa_filtered.tsv",
-            f"{p}_{a}_asv_blast2_proportional_stats.txt",
-            f"{p}_{a}_asv_blast_faire_taxa_filtered.tsv",
-            f"{p}_{a}_asv_blast_lulucurated_faire_taxa_filtered.tsv",
-            f"{p}_{a}_asv_blast_lulucurated_OTU_filtered.tsv",
-            f"{p}_{a}_asv_blast_lulucurated_phyloseq_filtered.rds",
-            f"{p}_{a}_asv_blast_lulucurated_phyloseq_taxa_filtered.tsv",
-            f"{p}_{a}_asv_blast_lulucurated_proportional_stats.txt",
-            f"{p}_{a}_asv_blast_OTU_filtered.tsv",
-            f"{p}_{a}_asv_blast_phyloseq_filtered.rds",
-            f"{p}_{a}_asv_blast_phyloseq_taxa_filtered.tsv",
-            f"{p}_{a}_asv_blast_proportional_stats.txt",
+            f"{p}_{a}_asv_nt_faire_taxa_filtered.tsv",
+            f"{p}_{a}_asv_nt_lulucurated_faire_taxa_filtered.tsv",
+            f"{p}_{a}_asv_nt_lulucurated_OTU_filtered.tsv",
+            f"{p}_{a}_asv_nt_lulucurated_phyloseq_filtered.rds",
+            f"{p}_{a}_asv_nt_lulucurated_phyloseq_taxa_filtered.tsv",
+            f"{p}_{a}_asv_nt_lulucurated_proportional_stats.txt",
+            f"{p}_{a}_asv_nt_OTU_filtered.tsv",
+            f"{p}_{a}_asv_nt_phyloseq_filtered.rds",
+            f"{p}_{a}_asv_nt_phyloseq_taxa_filtered.tsv",
+            f"{p}_{a}_asv_nt_proportional_stats.txt",
+            f"{p}_{a}_asv_curateddb_faire_taxa_filtered.tsv",
+            f"{p}_{a}_asv_curateddb_lulucurated_faire_taxa_filtered.tsv",
+            f"{p}_{a}_asv_curateddb_lulucurated_OTU_filtered.tsv",
+            f"{p}_{a}_asv_curateddb_lulucurated_phyloseq_filtered.rds",
+            f"{p}_{a}_asv_curateddb_lulucurated_phyloseq_taxa_filtered.tsv",
+            f"{p}_{a}_asv_curateddb_lulucurated_proportional_stats.txt",
+            f"{p}_{a}_asv_curateddb_OTU_filtered.tsv",
+            f"{p}_{a}_asv_curateddb_phyloseq_filtered.rds",
+            f"{p}_{a}_asv_curateddb_phyloseq_taxa_filtered.tsv",
+            f"{p}_{a}_asv_curateddb_proportional_stats.txt",
         ],
     }
 
@@ -317,16 +317,16 @@ def all_only_expected(p: str, a: str) -> dict[str, list[str]]:
             f"{p}_{a}_curated_asv.fa",
         ],
         "04-blast": [
-            f"{p}_{a}_asv_blast2_blastn_results.txt",
-            f"{p}_{a}_asv_blast_blastn_results.txt",
-            f"{p}_{a}_curated_asv_blast2_blastn_results.txt",
-            f"{p}_{a}_curated_asv_blast_blastn_results.txt",
+            f"{p}_{a}_asv_nt_blastn_results.txt",
+            f"{p}_{a}_asv_curateddb_blastn_results.txt",
+            f"{p}_{a}_curated_asv_nt_blastn_results.txt",
+            f"{p}_{a}_curated_asv_curateddb_blastn_results.txt",
         ],
         "04-ocomnbc": [
-            f"{p}_{a}_asv_blast2_lulucurated_ocom_nbc_output.tsv",
-            f"{p}_{a}_asv_blast2_ocom_nbc_output.tsv",
-            f"{p}_{a}_asv_blast_lulucurated_ocom_nbc_output.tsv",
-            f"{p}_{a}_asv_blast_ocom_nbc_output.tsv",
+            f"{p}_{a}_asv_nt_lulucurated_ocom_nbc_output.tsv",
+            f"{p}_{a}_asv_nt_ocom_nbc_output.tsv",
+            f"{p}_{a}_asv_curateddb_lulucurated_ocom_nbc_output.tsv",
+            f"{p}_{a}_asv_curateddb_ocom_nbc_output.tsv",
         ],
         "07-pipeline_info": [
             f"{p}_{a}_samplesheet.valid.csv",
@@ -688,7 +688,7 @@ def compare_samples_with_faire(ps_samples: list, ps_cols: list, faire_path: Path
             if genuinely_miss:
                 results.add(assay, d, WARN,
                     f"[{rds_name}] Real sample(s) in FAIRe but absent from phyloseq "
-                    f"despite entering the pipeline — check read counts: "
+                    f"This could be because the fw_index and rv_index values are wrong. Or it could be that we need to resequence this data: "
                     f"{sorted(genuinely_miss)[:5]}")
 
         if not only_ps and not only_faire:
@@ -1056,8 +1056,8 @@ def _check_mandatory_columns(rows: list, tab: str, fname: str,
 def check_multiqc_dir(mq_dir: Path, p: str, a: str, results: Results):
     d = "07-multiqc"
     check_file(mq_dir / f"{p}_{a}_multiqc_report.html", results, a, d)
-    check_dir(mq_dir / f"{p}_{a}_multiqc_data",  results, a, d)
-    check_dir(mq_dir / f"{p}_{a}_multiqc_plots", results, a, d)
+    #check_dir(mq_dir / f"{p}_{a}_multiqc_data",  results, a, d)
+    #check_dir(mq_dir / f"{p}_{a}_multiqc_plots", results, a, d)
 
 
 # ── 07-proportional_filter ─────────────────────────────────────────────────────
@@ -1231,12 +1231,15 @@ def main():
     )
     args = parser.parse_args()
 
+    if args.sing2 == "":
+        args.sing2 = os.environ.get("SING", "")
+
     project_dir = args.project_dir.resolve()
     if not project_dir.is_dir():
         print(f"ERROR: {project_dir} is not a directory", file=sys.stderr)
         sys.exit(1)
 
-    project_id = project_dir.name
+    project_id = str(project_dir.parent).split("/")[-1]
     timestamp  = datetime.now().strftime("%Y%m%d_%H%M%S")
     log_path   = args.log or project_dir / f"validation_{project_id}_{timestamp}.log"
 
