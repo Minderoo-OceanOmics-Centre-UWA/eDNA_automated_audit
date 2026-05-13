@@ -1239,7 +1239,7 @@ def main():
         print(f"ERROR: {project_dir} is not a directory", file=sys.stderr)
         sys.exit(1)
 
-    project_id = str(project_dir.parent).split("/")[-1]
+    project_id = str(project_dir).split("/")[-1]
     timestamp  = datetime.now().strftime("%Y%m%d_%H%M%S")
     log_path   = args.log or project_dir / f"validation_{project_id}_{timestamp}.log"
 
@@ -1255,15 +1255,24 @@ def main():
         d for d in project_dir.iterdir()
         if d.is_dir() and not d.name.startswith(".")
     )
+    assay_dirs = []
+    for d in project_dir.iterdir():
+        path = Path(d)
+        #for entry in path.rglob("*"):
+        #print(path.iterdir())
+        subdirs = [x for x in Path(d).rglob('*') if x.is_dir()]
+        for i in subdirs:
+            assay_dirs.append(i)
     if not assay_dirs:
         log.error(f"No subdirectories found in {project_dir}")
         sys.exit(1)
-
+    
     # Filter to dirs that look like assay outputs
     assay_dirs = [
         d for d in assay_dirs
         if any((d / sub).exists() for sub in ("05-lca", "06-phyloseq", "07-faire"))
     ]
+
     if not assay_dirs:
         log.error("No assay directories found (expected subdirs: 05-lca, 06-phyloseq, 07-faire)")
         sys.exit(1)
