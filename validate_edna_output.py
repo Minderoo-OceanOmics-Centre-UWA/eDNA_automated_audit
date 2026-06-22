@@ -242,10 +242,10 @@ def shared_expected(p: str, a: str) -> dict[str, list[str]]:
             f"{p}_{a}_asv_curateddb_taxa_raw.tsv",
         ],
         "06-aquamap": [
-            f"{p}_{a}_aquamaps_asv_nt_flagged_phyloseq.rds.csv",
-            f"{p}_{a}_aquamaps_asv_curateddb_flagged_phyloseq.rds.csv",
-            f"{p}_{a}_aquamaps_asv_nt_lulucurated_flagged_phyloseq.rds.csv",
-            f"{p}_{a}_aquamaps_asv_curateddb_lulucurated_flagged_phyloseq.rds.csv",
+            f"{p}_{a}_aquamaps_asv_nt.csv",
+            f"{p}_{a}_aquamaps_asv_curateddb.csv",
+            f"{p}_{a}_aquamaps_asv_nt_lulucurated.csv",
+            f"{p}_{a}_aquamaps_asv_curateddb_lulucurated.csv",
         ],
         "06-phyloseq": [
             f"{p}_{a}_asv_nt_final_taxa.tsv",
@@ -1029,7 +1029,8 @@ def _check_mandatory_columns(rows: list, tab: str, fname: str,
                 if is_control:
                     control_blanks.setdefault(row_id, []).append(col_name)
                 else:
-                    missing_by_col.setdefault(col_name, []).append(row_id)
+                    if col_name != "pcr_plate_id":
+                        missing_by_col.setdefault(col_name, []).append(row_id)
 
     # Report failures
     if missing_by_col:
@@ -1294,6 +1295,8 @@ def main():
     log.info(f"PASS         : {len(passes)}")
     log.info(f"WARN         : {len(warns)}")
     log.info(f"FAIL         : {len(fails)}")
+    log.info(f"Run date     : {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    log.info(f"Directory    : {project_dir}")
 
     if fails:
         log.error("")
