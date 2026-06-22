@@ -356,7 +356,7 @@ def check_lca_dir(lca_dir: Path, p: str, a: str, results: Results):
                     dupes = df["seq_id"][df["seq_id"].duplicated()].unique().tolist()
                     if dupes:
                         results.add(a, d, FAIL,
-                            f"Duplicate seq_id in {fname}: {dupes[:5]}")
+                            f"Duplicate seq_id in {fname}: {dupes}")
                     else:
                         results.add(a, d, PASS, f"seq_id unique in {fname}")
                 else:
@@ -398,7 +398,7 @@ def check_aquamap_dir(aq_dir: Path, p: str, a: str, results: Results):
             dupes = df.index[df.index.duplicated()].unique().tolist()
             if dupes:
                 results.add(a, d, FAIL,
-                    f"Duplicate species in {fname}: {dupes[:5]}")
+                    f"Duplicate species in {fname}: {dupes}")
             else:
                 results.add(a, d, PASS, f"No duplicate species in {fname}")
 
@@ -643,7 +643,7 @@ def compare_samples_with_faire(ps_samples: list, ps_cols: list, faire_path: Path
             if unexpected:
                 results.add(assay, d, WARN,
                     f"[{rds_name}] Non-control samples in phyloseq but missing from "
-                    f"FAIRe sampleMetadata: {sorted(unexpected)[:5]}")
+                    f"FAIRe sampleMetadata: {sorted(unexpected)}")
 
         # ── samples in FAIRe but not in phyloseq ──────────────────────────────
         if only_faire:
@@ -675,7 +675,7 @@ def compare_samples_with_faire(ps_samples: list, ps_cols: list, faire_path: Path
             if controls_ok:
                 results.add(assay, d, PASS,
                     f"[{rds_name}] Control/negative samples absent from phyloseq — "
-                    f"expected (controls may have 0 reads): {sorted(controls_ok)[:5]}")
+                    f"expected (controls may have 0 reads): {sorted(controls_ok)}")
             if itc_warn:
                 results.add(assay, d, WARN,
                     f"[{rds_name}] ITC positive control(s) absent from phyloseq — "
@@ -684,12 +684,12 @@ def compare_samples_with_faire(ps_samples: list, ps_cols: list, faire_path: Path
                 results.add(assay, d, PASS,
                     f"[{rds_name}] Real sample(s) absent from phyloseq because they were "
                     f"excluded/discarded from the pipeline run (0 reads expected): "
-                    f"{sorted(discarded_ok)[:5]}")
+                    f"{sorted(discarded_ok)}")
             if genuinely_miss:
                 results.add(assay, d, WARN,
                     f"[{rds_name}] Real sample(s) in FAIRe but absent from phyloseq "
                     f"This could be because the fw_index and rv_index values are wrong. Or it could be that we need to resequence this data: "
-                    f"{sorted(genuinely_miss)[:5]}")
+                    f"{sorted(genuinely_miss)}")
 
         if not only_ps and not only_faire:
             results.add(assay, d, PASS,
@@ -704,11 +704,11 @@ def compare_samples_with_faire(ps_samples: list, ps_cols: list, faire_path: Path
             if missing:
                 results.add(assay, d, WARN,
                     f"[{rds_name}] FAIRe sampleMetadata columns absent from sam_data: "
-                    f"{sorted(missing)[:5]}")
+                    f"{sorted(missing)}")
             if extra:
                 results.add(assay, d, WARN,
                     f"[{rds_name}] sam_data columns absent from FAIRe sampleMetadata: "
-                    f"{sorted(extra)[:5]}")
+                    f"{sorted(extra)}")
             if not missing and not extra:
                 results.add(assay, d, PASS,
                     f"[{rds_name}] sam_data columns match FAIRe sampleMetadata columns")
@@ -798,7 +798,7 @@ def _check_faire_xlsx(fpath: Path, p: str, a: str, d: str, results: Results):
                     dupes = [k for k, v in Counter(first_col).items() if v > 1]
                     if dupes:
                         results.add(a, d, FAIL,
-                            f"Duplicate ASV IDs in '{tab}' of {fname}: {dupes[:5]}")
+                            f"Duplicate ASV IDs in '{tab}' of {fname}: {dupes}")
                     else:
                         results.add(a, d, PASS,
                             f"ASV IDs unique in '{tab}' of {fname}")
@@ -813,7 +813,7 @@ def _check_faire_xlsx(fpath: Path, p: str, a: str, d: str, results: Results):
                     dupes  = [k for k, v in Counter(header).items() if v > 1]
                     if dupes:
                         results.add(a, d, FAIL,
-                            f"Duplicate sample columns in '{tab}' of {fname}: {dupes[:5]}")
+                            f"Duplicate sample columns in '{tab}' of {fname}: {dupes}")
                     else:
                         results.add(a, d, PASS,
                             f"Sample columns unique in '{tab}' of {fname}")
@@ -1034,10 +1034,10 @@ def _check_mandatory_columns(rows: list, tab: str, fname: str,
 
     # Report failures
     if missing_by_col:
-        for col_name, row_ids in list(missing_by_col.items())[:5]:
+        for col_name, row_ids in list(missing_by_col.items()):
             results.add(assay, d, FAIL,
                 f"[{fname}] '{tab}': mandatory column '{col_name}' missing values "
-                f"in {len(row_ids)} row(s): {row_ids[:3]}")
+                f"in {len(row_ids)} row(s): {row_ids}")
     else:
         results.add(assay, d, PASS,
             f"[{fname}] '{tab}': all mandatory columns populated")
@@ -1045,7 +1045,7 @@ def _check_mandatory_columns(rows: list, tab: str, fname: str,
     # Note control-sample blanks as expected behaviour
     if control_blanks:
         n           = len(control_blanks)
-        sample_list = sorted(control_blanks.keys())[:5]
+        sample_list = sorted(control_blanks.keys())
         results.add(assay, d, PASS,
             f"[{fname}] '{tab}': {n} control/negative sample(s) have blank mandatory "
             f"fields — expected (controls may lack sample-collection metadata): "
@@ -1085,7 +1085,7 @@ def check_proportional_filter_dir(pf_dir: Path, p: str, a: str, results: Results
                 dupes = df.columns[df.columns.duplicated()].tolist()
                 if dupes:
                     results.add(a, d, FAIL,
-                        f"Duplicate sample columns in {fname}: {dupes[:5]}")
+                        f"Duplicate sample columns in {fname}: {dupes}")
                 else:
                     results.add(a, d, PASS, f"Sample columns unique in {fname}")
         except Exception as e:
@@ -1246,10 +1246,10 @@ def main():
 
     log = setup_logging(log_path)
     log.info("OceanOmics eDNA Output Validator  |  SOP OcOm_B218")
-    log.info(f"Project  : {project_id}")
-    log.info(f"Mode     : {'all directories' if args.check_all else 'shared directories only'}")
-    log.info(f"SING2    : {args.sing2 or '(not set — phyloseq .rds checks will be skipped)'}")
-    log.info(f"Log file : {log_path}")
+    log.info(f"Project   : {project_id}")
+    log.info(f"Mode      : {'all directories' if args.check_all else 'shared directories only'}")
+    log.info(f"SING2     : {args.sing2 or '(not set — phyloseq .rds checks will be skipped)'}")
+    log.info(f"Log file  : {log_path}")
 
     # Discover assay directories
     assay_dirs = sorted(
@@ -1278,7 +1278,12 @@ def main():
         log.error("No assay directories found (expected subdirs: 05-lca, 06-phyloseq, 07-faire)")
         sys.exit(1)
 
-    log.info(f"Assays   : {[d.name for d in assay_dirs]}")
+    log.info(f"Assays    : {[d.name for d in assay_dirs]}")
+    log.info(f"Run date  : {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    directories = [x.name for x in project_dir.iterdir() if x.is_dir()]
+    if "logs" in directories:
+        directories.remove("logs")
+    log.info(f"Directory : {str(directories)}")
 
     results = Results(log)
 
@@ -1287,8 +1292,6 @@ def main():
 
     # ── final summary ──────────────────────────────────────────────────────────
     fails, warns, passes = results.counts()
-    directories = [x.name for x in project_dir.iterdir() if x.is_dir()]
-    directories.remove("logs")
     log.info("")
     log.info("=" * 60)
     log.info("FINAL SUMMARY")
