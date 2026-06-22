@@ -1287,6 +1287,8 @@ def main():
 
     # ── final summary ──────────────────────────────────────────────────────────
     fails, warns, passes = results.counts()
+    directories = [x.name for x in project_dir.iterdir() if x.is_dir()]
+    directories.remove("logs")
     log.info("")
     log.info("=" * 60)
     log.info("FINAL SUMMARY")
@@ -1296,7 +1298,7 @@ def main():
     log.info(f"WARN         : {len(warns)}")
     log.info(f"FAIL         : {len(fails)}")
     log.info(f"Run date     : {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    log.info(f"Directory    : {project_dir}")
+    log.info(f"Directory    : {str(directories)}")
 
     if fails:
         log.error("")
