@@ -15,11 +15,11 @@ Audits eDNA metabarcoding pipeline outputs for a project directory before data i
 ## Usage
 
 ```bash
-# Check shared/collaborator directories only (default)
+# Check all directories (default)
 uv run --script validate_edna_output.py <project_dir>
 
-# Check all pipeline directories
-uv run --script validate_edna_output.py <project_dir> --all
+# Check shared/collaborator directories only
+uv run --script validate_edna_output.py <project_dir> --partial
 
 # Specify log path
 uv run --script validate_edna_output.py <project_dir> --log /path/to/output.log
@@ -36,14 +36,14 @@ The log is written to `<project_dir>/validation_<timestamp>.log` by default.
 
 | Flag | What is checked |
 |------|----------------|
-| (default) | Shared/collaborator directories: `05-lca`, `06-aquamap`, `06-phyloseq`, `07-faire`, `07-multiqc`, `07-proportional_filter` |
-| `--all` | All of the above **plus** early pipeline directories: `01-cutadapt`, `01-fastqc`, `01-seqkit_stats`, `02-dada2`, `03-lulu`, `04-blast`, `04-ocomnbc`, `07-pipeline_info` |
+| `--partial` | Shared/collaborator directories: `05-lca`, `06-aquamap`, `06-phyloseq`, `07-faire`, `07-multiqc`, `07-proportional_filter` |
+| Default | All of the above **plus** early pipeline directories: `01-cutadapt`, `01-fastqc`, `01-seqkit_stats`, `02-dada2`, `03-lulu`, `04-blast`, `04-ocomnbc`, `07-pipeline_info` |
 
 ---
 
 ## Checks Performed
 
-### All Modes (Shared / Collaborator Directories)
+### Partial Modes (Shared / Collaborator Directories)
 
 #### `05-lca` — LCA taxonomy files
 
@@ -114,7 +114,7 @@ The log is written to `<project_dir>/validation_<timestamp>.log` by default.
 
 ---
 
-### `--all` Mode Only (Full Pipeline Directories)
+### Default Mode Only (Full Pipeline Directories)
 
 #### `01-cutadapt` — Primer trimming
 

@@ -8,10 +8,10 @@ OceanOmics eDNA Pipeline Output Validator
 SOP: OcOm_B218
 
 Usage:
-    validate_edna_output.py <project_dir> [--all] [--log LOG] [--sing2 PATH]
+    validate_edna_output.py <project_dir> [--partial] [--log LOG] [--sing2 PATH]
 
 Flags:
-    --all       Check all pipeline directories (default: shared dirs only)
+    --partial   Check shared pipeline directories (default: all dirs)
     --log       Log file path (default: <project_dir>/validation_<timestamp>.log)
     --sing2     Path to singularity images dir (default: $SING2 env var)
 """
@@ -1218,8 +1218,8 @@ def main():
         help="Project directory containing assay subdirectories (e.g. /path/to/OcOm_2516)"
     )
     parser.add_argument(
-        "--all", dest="check_all", action="store_true",
-        help="Check all pipeline directories (default: shared/collaborator dirs only)"
+        "--partial", dest="partial", action="store_true",
+        help="Check shared/collaborator dirs only (default: Check all dirs)"
     )
     parser.add_argument(
         "--log", type=Path,
@@ -1247,7 +1247,7 @@ def main():
     log = setup_logging(log_path)
     log.info("OceanOmics eDNA Output Validator  |  SOP OcOm_B218")
     log.info(f"Project   : {project_id}")
-    log.info(f"Mode      : {'all directories' if args.check_all else 'shared directories only'}")
+    log.info(f"Mode      : {'shared directories only' if args.partial else 'all directories'}")
     log.info(f"SING2     : {args.sing2 or '(not set — phyloseq .rds checks will be skipped)'}")
     log.info(f"Log file  : {log_path}")
 
@@ -1287,8 +1287,12 @@ def main():
 
     results = Results(log)
 
+    check_all = True
+    if args.partial:
+        check_all = False
+
     for assay_dir in assay_dirs:
-        validate_assay(assay_dir, project_id, args.check_all, results, args.sing2, log)
+        validate_assay(assay_dir, project_id, check_all, results, args.sing2, log)
 
     # ── final summary ──────────────────────────────────────────────────────────
     fails, warns, passes = results.counts()
