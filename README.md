@@ -70,6 +70,9 @@ uv run --script validate_edna_output.py <project_dir>
 
 # Check shared/collaborator directories only (recommended before sharing)
 uv run --script validate_edna_output.py <project_dir> --partial
+
+# Next, run backup script
+bash backup_results.sh <project_dir>
 ```
 
 **Example:**
