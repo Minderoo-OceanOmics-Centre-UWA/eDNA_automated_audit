@@ -1,13 +1,13 @@
 project_dir=$1
 
-project=$(basename $(dirname $project_dir))
+project=$(basename $(dirname ${project_dir}))
 mkdir -p tmp/tmp_fastqs_${project}
 
 # Remove project prefix from demuxed untrimmed fqs and change location
 for file in ${project_dir}/*/*/01-cutadapt/assigned/*; do
-    filename=$(basename "$file")
+    filename=$(basename ${file})
     newname=${filename#${project}_}
-    mv ${file} tmp/tmp_fastqs_${project}/$newname    
+    mv ${file} tmp/tmp_fastqs_${project}/${newname}   
 done
 
 # Rename trimmed fqs and change location
