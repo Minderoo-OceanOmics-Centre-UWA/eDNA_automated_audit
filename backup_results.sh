@@ -1,33 +1,37 @@
 project_dir=$1
 
-project=$(basename $(dirname ${project_dir}))
+project=$(basename ${project_dir})
 mkdir -p tmp/tmp_fastqs_${project}
 
 # Remove project prefix from demuxed untrimmed fqs and change location
+echo moving untrimmed fastqs to tmp/tmp_fastqs_${project}
 for file in ${project_dir}/*/*/01-cutadapt/assigned/*; do
     filename=$(basename ${file})
     newname=${filename/_${project}_/_}
-    mv ${file} tmp/tmp_fastqs_${project}/${newname}   
+    mv ${file} tmp/tmp_fastqs_${project}/${newname}
 done
 
 # Rename trimmed fqs and change location
+echo moving trimmed fastqs to ${project_dir}/fastqs
 for file in ${project_dir}/*/*/01-cutadapt/all-primers-trimmed/*; do
     filename=$(basename ${file})
-    newname=${filename#trimmed_trimmed_${project}_}
-    assay=${newname#*_}
-    assay=${assay%%_*}
-    
+    newname=$(echo ${filename/_${project}_/_} | sed 's/trimmed_trimmed_//g')
+    assay=$(echo $newname | cut -d '_' -f 3)
+
     mkdir -p ${project_dir}/fastqs/${assay}
     mv ${file} ${project_dir}/fastqs/${assay}/${newname}
 done
 
 # Backup project directory
+echo backing up ${project_dir}
 rclone copy ${project_dir} s3:ocom-edna/illumina-meta-analysed-data/${project}
-rclone check ${project_dir} s3:ocom-edna/illumina-meta-analysed-data/${project}
+rclone check ${project_dir} s3:ocom-edna/illumina-meta-analysed-data/${project} --combined ${project}_dir_rclone_check.txt
 
 # Backup demuxed untrimmed fqs to different location
-rclone copy tmp/tmp_fastqs_${project}/* s3:ocom-edna/illumina-meta-sra/${project}
-rclone check tmp/tmp_fastqs_${project}/* s3:ocom-edna/illumina-meta-sra/${project}
+echo backing up fastqs in tmp/tmp_fastqs_${project}
+rclone copy tmp/tmp_fastqs_${project} s3:ocom-edna/illumina-meta-sra/${project}
+rclone check tmp/tmp_fastqs_${project} s3:ocom-edna/illumina-meta-sra/${project} --combined ${project}_fastqs_rclone_check.txt
 
 # Cleanup
+echo deleting tmp/tmp_fastqs_${project}
 rm -r tmp/tmp_fastqs_${project}
